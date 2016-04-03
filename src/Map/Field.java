@@ -31,10 +31,10 @@ public class Field {
 	public Texture getTexture() {
 		if(texture == null){
 			if(type == FieldType.GRAS){
-//				texture = loadTexture("Gras");
+				texture = loadTexture("Gras");
 			}
 		}
-		return loadTexture("Gras");
+		return texture;
 	}
 	public static Texture loadTexture(String name){
 		InputStream in = ResourceLoader.getResourceAsStream("res/"+name+".png");
