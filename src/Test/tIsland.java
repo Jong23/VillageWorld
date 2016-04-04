@@ -5,8 +5,8 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
+import Buildings.Lumberer;
 import Game.Island;
-import Game.Lumberer;
 
 public class tIsland {
 	Island island;
