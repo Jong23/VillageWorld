@@ -1,15 +1,19 @@
-package Game;
+package Buildings;
 
-public abstract class Building implements Producing{
+import Game.Storage;
+
+public abstract class Building{
 	int width;
 	int height;
 	int x;
 	int y;
-	public Building(int x, int y, int w, int h){
+	Storage storage;
+	public Building(int x, int y, int w, int h, Storage store){
 		width = w;
 		height = h;
 		this.x = x;
 		this.y = y;
+		this.storage = store;
 	}
 	
 	public void move(int x, int y){
@@ -28,6 +32,13 @@ public abstract class Building implements Producing{
 	}
 	public int getY() {
 		return y;
+	}
+	public Storage getStorage() {
+		return storage;
+	}
+
+	public void setStorage(Storage storage) {
+		this.storage = storage;
 	}
 	
 	
