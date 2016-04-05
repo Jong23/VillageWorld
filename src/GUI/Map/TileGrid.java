@@ -1,5 +1,5 @@
-package data;
-import static helpers.Artist.*;
+package GUI.Map;
+import static GUI.Artist.*;
 
 import Game.Constants;
 
@@ -22,5 +22,8 @@ public class TileGrid {
 				drawQuadTex(t.getTexture(),t.getX(),t.getY(),t.getWidth(),t.getHeight());
 			}
 		}
+	}
+	public void setTile(int x, int y, TileType type) {
+		tiles[x][y].setTexture(quickload(TileType.Dirt.textureName));
 	}
 }

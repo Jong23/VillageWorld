@@ -1,4 +1,4 @@
-package helpers;
+package GUI;
 
 import static org.lwjgl.opengl.GL11.*;
 

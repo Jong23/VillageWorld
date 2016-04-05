@@ -1,4 +1,4 @@
-package data;
+package GUI.Map;
 
 public enum TileType {
 

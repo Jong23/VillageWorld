@@ -1,7 +1,8 @@
-package data;
+package GUI.Map;
+
+import static GUI.Artist.*;
 
 import org.newdawn.slick.opengl.Texture;
-import static helpers.Artist.*;
 
 public class Tile {
 	private float x, y, width, height;
