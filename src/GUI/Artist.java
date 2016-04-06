@@ -5,13 +5,9 @@ import static org.lwjgl.opengl.GL11.*;
 import java.io.IOException;
 import java.io.InputStream;
 
-import static org.lwjgl.opengl.GL11.glEnable;
-import static org.lwjgl.opengl.GL11.GL_MODELVIEW;
-import static org.lwjgl.opengl.GL11.GL_TEXTURE_2D;
-import static org.lwjgl.opengl.GL11.glTranslatef;
-import static org.lwjgl.opengl.GL11.glTexCoord2f;
 
 import org.lwjgl.LWJGLException;
+import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 import org.newdawn.slick.opengl.Texture;
@@ -48,9 +44,17 @@ public class Artist {
 		glEnd();
 	}
 	
-	public static void drawQuadTex(Texture tex, float x, float y, float width, float height){
+	public static void drawQuadTex(Texture tex, float x, float y, float width, float height, float angle){
 		tex.bind();
-		glTranslatef(x,y,0);
+		if(angle==0){
+			glTranslatef(x,y,0);
+		}
+		else{
+			glTranslatef(x+width/2,y+height/2,0);
+			glRotatef(angle,0,0,1);
+			glTranslatef(-width/2, -height/2,0);	
+		}
+
 		glBegin(GL_QUADS);
 		glTexCoord2f(0,0);
 		glVertex2f(0,0);
@@ -63,21 +67,15 @@ public class Artist {
 		glEnd();
 		glLoadIdentity();
 	}
-	public static Texture loadTexture(String path, String fileType){
+	public static Texture loadTexture(String name){
 		Texture tex = null;
-		InputStream in = ResourceLoader.getResourceAsStream(path);
+		InputStream in = ResourceLoader.getResourceAsStream("res/" +name+".png");
 		try {
-			tex = TextureLoader.getTexture(fileType, in);
+			tex = TextureLoader.getTexture("png", in);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		return tex;
 	}
-	
-	public static Texture quickload(String name){
-		Texture tex = null;
-		tex = loadTexture("res/" +name+".png","png");
-		return tex;
-	}
-
+		
 }

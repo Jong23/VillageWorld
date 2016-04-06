@@ -1,11 +1,10 @@
-package GUI.Map;
+package GUI;
 
 import org.lwjgl.LWJGLException;
+import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 import org.newdawn.slick.opengl.Texture;
-
-import GUI.Player;
 
 import static GUI.Artist.*;
 import static org.lwjgl.opengl.GL11.*;
@@ -15,16 +14,14 @@ public class Boot {
 	public Boot(){
 		beginSession();
 		
-		TileGrid tileGrid = new TileGrid();
-		Player player = new Player(tileGrid);
+
 		
 		while(!Display.isCloseRequested()){
 			
-			tileGrid.draw();
-			
+			StateManager.update();
 			Display.update();
 			Display.sync(60);
-			player.setTile();
+			//player.setTile();
 		}
 	}
 

@@ -14,11 +14,11 @@ public class Tile {
 		this.y = y;
 		this.width = width;
 		this.height = height;
-		this.texture = quickload(type.textureName);
+		this.texture = loadTexture(type.textureName);
 	}
 	
 	public void draw(){
-		drawQuadTex(texture, x, y, width, height);
+		drawQuadTex(texture, x, y, width, height,0);
 
 	}
 

@@ -19,11 +19,11 @@ public class TileGrid {
 		for(int i=0; i<tiles.length; i++){
 			for(int j=0; j<tiles[i].length;j++){
 				Tile t = tiles[i][j];
-				drawQuadTex(t.getTexture(),t.getX(),t.getY(),t.getWidth(),t.getHeight());
+				drawQuadTex(t.getTexture(),t.getX(),t.getY(),t.getWidth(),t.getHeight(),0);
 			}
 		}
 	}
 	public void setTile(int x, int y, TileType type) {
-		tiles[x][y].setTexture(quickload(TileType.Dirt.textureName));
+		tiles[x][y].setTexture(loadTexture(TileType.Dirt.textureName));
 	}
 }
