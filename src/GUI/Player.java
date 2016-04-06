@@ -3,6 +3,7 @@ import org.lwjgl.input.Mouse;
 
 import GUI.Map.TileGrid;
 import GUI.Map.TileType;
+import helpers.Artist;
 
 public class Player {
 

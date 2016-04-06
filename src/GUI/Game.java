@@ -1,6 +1,13 @@
 package GUI;
 
-import static GUI.Artist.drawQuadTex;
+import static org.lwjgl.opengl.GL11.glOrtho;
+import static GUI.UI.*;
+import static helpers.Artist.HEIGHT;
+import static helpers.Artist.WIDTH;
+import static helpers.Artist.drawQuadTex;
+
+import org.lwjgl.input.Mouse;
+
 import GUI.Map.TileGrid;
 
 public class Game {
@@ -12,7 +19,8 @@ public class Game {
 	}
 	
 	public void update(){
-		UI.zoom();
 		map.draw();
 	}
+	
+
 }

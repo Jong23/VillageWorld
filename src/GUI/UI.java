@@ -1,7 +1,8 @@
 package GUI;
 
 import java.util.ArrayList;
-import static GUI.Artist.*;
+
+import static helpers.Artist.*;
 import static org.lwjgl.opengl.GL11.glOrtho;
 
 import org.lwjgl.input.Mouse;
@@ -46,19 +47,8 @@ public class UI {
 		}
 	}
 	
-	public static void zoom(){
-		if(scrollingEnabled==true){
-				if(cameraHeight+Mouse.getDWheel()<=2 && Mouse.getDWheel()>0){
-					//erhöhe camera
-					glOrtho(0,WIDTH*2,HEIGHT*2,0,1,-1);
-				}
-				if(cameraHeight+Mouse.getDWheel()>=0 && Mouse.getDWheel()<0){
-					//verringere camera
-					glOrtho(0,WIDTH/2,HEIGHT/2,0,1,-1);
-				}
-		}
-	}
-	
+
+/*	
 	public static void checkMouseWheel() {
 	    	int dWheel = Mouse.getDWheel();
 	    	if (dWheel < 0) {
@@ -69,4 +59,5 @@ public class UI {
 	    	}
 	    
 	}
+*/
 }

@@ -1,5 +1,5 @@
 package GUI.Map;
-import static GUI.Artist.*;
+import static helpers.Artist.*;
 
 import Game.Constants;
 
