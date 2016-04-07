@@ -33,6 +33,12 @@ public class StateManager {
 			break;
 		
 		case EDITOR:
+			if(editor==null){
+				
+				map = new TileGrid();
+				editor= new Editor();
+			}
+			editor.update();
 			
 			break;
 		}

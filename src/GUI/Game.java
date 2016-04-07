@@ -13,9 +13,11 @@ import GUI.Map.TileGrid;
 public class Game {
 
 	private TileGrid map;
+	private Player player;
 	
 	Game(TileGrid map){
 		this.map = map;
+		this.player=new Player(this.map);
 	}
 	
 	public void update(){

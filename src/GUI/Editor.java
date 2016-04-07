@@ -1,6 +1,10 @@
 package GUI;
 
+import org.lwjgl.input.Mouse;
+
 import GUI.Map.TileGrid;
+import GUI.Map.TileType;
+import helpers.Artist;
 
 public class Editor {
 	
@@ -12,6 +16,11 @@ public class Editor {
 	
 	public void update(){
 		map.draw();
+		setTile();
+	}
+	
+	public void setTile(){
+		map.setTile((int) Math.floor(Mouse.getX()/32),(int)Math.floor((Artist.HEIGHT-Mouse.getY()-1)/32), TileType.Dirt);
 	}
 
 }

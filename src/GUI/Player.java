@@ -14,7 +14,5 @@ public class Player {
 	
 	}
 	
-	public void setTile(){
-		grid.setTile((int) Math.floor(Mouse.getX()/32),(int)Math.floor((Artist.HEIGHT-Mouse.getY()-1)/32), TileType.Dirt);
-	}
+
 }

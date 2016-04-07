@@ -5,6 +5,7 @@ import static helpers.Artist.*;
 
 public class Boot {
 	
+	
 	public Boot(){
 		beginSession();
 		
@@ -16,7 +17,7 @@ public class Boot {
 			
 			Display.update();
 			Display.sync(60);
-			//player.setTile();
+			
 		}
 		Display.destroy();
 	}
