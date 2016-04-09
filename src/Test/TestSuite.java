@@ -10,7 +10,8 @@ import org.junit.runners.Suite.SuiteClasses;
 	tIsland.class,
 	tLumberer.class,
 	tStorage.class,
-	tProducingBuilding.class})
+	tProducingBuilding.class,
+	tClock.class})
 public class TestSuite {
 
 }

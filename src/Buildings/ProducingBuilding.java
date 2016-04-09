@@ -5,13 +5,14 @@ import java.util.TimerTask;
 
 import Enums.RessourceType;
 import Game.Storage;
+import helpers.Clock;
 
 public abstract class ProducingBuilding extends Building implements Producing{
 	static Timer timer = new Timer();
 	private int workers = 0; 
 	private int activeWorkers = 0;
 	private int maxWorkers = 1;
-	
+	private static Clock clock = Clock.getInstance();
 	private boolean isWorking = false;
 	RessourceType type;
 	private int baseProductionTime;
@@ -24,15 +25,29 @@ public abstract class ProducingBuilding extends Building implements Producing{
 		if(isWorking){
 			while(activeWorkers < workers){
 				TimerTask task = new TimerTask() {
+					long workStarted = clock.getTime();
 					@Override
 					public void run() {
-						produce();
-						activeWorkers--;
-						work();
+						if(isWorking & (activeWorkers<= workers)){
+							long producedTime = clock.getTime()-workStarted;
+							if(producedTime > getProductionTime()){
+								while(producedTime >= getProductionTime()){
+									produce();
+									producedTime = producedTime - getProductionTime();
+								}
+								activeWorkers--;
+								work();
+								this.cancel();
+							
+							}
+						} else {
+							activeWorkers--;
+							this.cancel();
+						}
 					}
 				};
-				timer.schedule(task, getProductionTime());
 				activeWorkers++;
+				timer.scheduleAtFixedRate(task, 0, 1000);
 			}
 		}
 	}
@@ -58,9 +73,7 @@ public abstract class ProducingBuilding extends Building implements Producing{
 		if(!(getWorkerCount()>= maxWorkers)){
 			this.workers++;
 		}
-		if(isWorking){
-			work();
-		}
+		work();
 	}
 	public void removeWorker(){
 		if(getWorkerCount()>0){
