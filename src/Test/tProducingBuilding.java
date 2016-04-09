@@ -7,18 +7,21 @@ import org.junit.Test;
 import com.sun.corba.se.impl.resolver.ORBDefaultInitRefResolverImpl;
 
 import Buildings.ProducingBuilding;
+import Enums.BuildingType;
 import Enums.RessourceType;
 import Game.Storage;
+import helpers.Clock;
 
 public class tProducingBuilding {
 
-	@Test
+	@Test 
 	public void test() {
-		int productionTime = 100;
+		int productionTime = 199;
+		BuildingType.Lumberer.setBaseProductionTime(productionTime);
 		class TestBuilding extends ProducingBuilding {
 			int counter = 0;
 			public TestBuilding() {
-				super(0,0,0,0,null,productionTime,null);
+				super(0,0,BuildingType.Lumberer, null);
 			}
 			
 			@Override
@@ -51,9 +54,8 @@ public class tProducingBuilding {
 		// test working with 0 workers
 		building.startWork();
 		try {
-			Thread.sleep(10*productionTime - 20);
+			Thread.sleep(5*productionTime + 50);
 			building.stopWork();
-			Thread.sleep(50);
 			assertEquals(0, building.counter); //produce called 5 times
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
@@ -63,10 +65,9 @@ public class tProducingBuilding {
 		building.addWorker();
 		building.startWork();
 		try {
-			Thread.sleep(10*productionTime - 20);
+			Thread.sleep(5*productionTime + 50);
 			building.stopWork();
-			Thread.sleep(50);
-			assertEquals(10, building.counter); //produce called 5 times
+			assertEquals(5, building.counter); //produce called 5 times
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -76,10 +77,9 @@ public class tProducingBuilding {
 		building.addWorker();
 		building.startWork();
 		try {
-			Thread.sleep(10*productionTime - 20);
+			Thread.sleep(5*productionTime + 100);
 			building.stopWork();
-			Thread.sleep(50);
-			assertEquals(20, building.counter); //produce called 5 times
+			assertEquals(10, building.counter); //produce called 5 times
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -90,20 +90,34 @@ public class tProducingBuilding {
 		building.removeWorker();
 		assertEquals(0, building.getWorkerCount());
 		building.resetCounter();
+		assertEquals(0, building.counter); 
 		building.startWork();
 		try {
-			Thread.sleep(10*productionTime + 10);
+			Thread.sleep(5*productionTime + 50);
+			assertEquals(0, building.counter); 
 			building.addWorker();
-			Thread.sleep(10*productionTime - 20);
+			Thread.sleep(5*productionTime + 50);
 			building.stopWork();
-			Thread.sleep(50);
-			assertEquals(10, building.counter); //produce called 5 times
+			assertEquals(5, building.counter); 
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
-		
+		//test with clock
+		building = new TestBuilding();
+		Clock.getInstance().setSpeed(2);
+		building.addWorker();
+		building.startWork();
+		try {
+			Thread.sleep(5*productionTime + 50);
+			building.stopWork();
+			assertEquals(10, building.counter); //produce called 5 times
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		Clock.getInstance().setSpeed(1);
 	}
 
 }
