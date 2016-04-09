@@ -2,6 +2,7 @@ package Game;
 
 
 import java.util.HashMap;
+import java.util.Map.Entry;
 
 import Enums.RessourceType;
 
@@ -10,15 +11,30 @@ public class Storage {
 	HashMap<RessourceType, Integer> ressources;
 	// Standard Storage, needs everything
 	public Storage(int size){
-		ressources = new HashMap<>();
+		initialize(size);
 		for (RessourceType ressourceType : RessourceType.values()) {
 			ressources.put(ressourceType, 0);
 		}
+	}
+	public Storage(int size, RessourceType [] neeededRessources){
+		initialize(size);
+		for (int i = 0; i < neeededRessources.length; i++) {
+			ressources.put(neeededRessources[i], 0);
+		}
+	}
+	public Storage(int size, RessourceType [] neeededRessources, int [] amountOfRessource){
+		initialize(size);
+		for (int i = 0; i < neeededRessources.length; i++) {
+			ressources.put(neeededRessources[i], -amountOfRessource[i]);
+		}
+	}
+	private void initialize(int size) {
+		ressources = new HashMap<>();
 		this.size = size;
 	}
 	// returns only complete ressources
 	public int getAmountOfRessource(RessourceType type){
-		return (int)ressources.get(type).doubleValue();
+		return ressources.get(type);
 	}
 	public void addRessource(RessourceType type, int amount){
 		int currentAmount = ressources.get(type);
@@ -27,11 +43,19 @@ public class Storage {
 	public void removeRessource(RessourceType type, int amount){
 		addRessource(type, -amount);
 	}
-//	// Storage that needs 1 ressource (producing building)
+	public boolean isFull(){
+		for(Entry<RessourceType, Integer> ressource : ressources.entrySet()){
+			if(ressource.getValue()<size){
+				return false;
+			}
+		}
+		return true;
+	}
+//	// Storage that needs 1 ressource (producing )
 //	public Storage(int size, RessourceType neededRessource) {
 //		scheduler = new RessourceScheduler();
 //	}
-//	public void addProducer(Building b) {
+//	public void addProducer( b) {
 //		scheduler.addProducer(b);
 //		
 //	}

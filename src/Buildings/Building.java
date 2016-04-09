@@ -1,5 +1,8 @@
 package Buildings;
 
+import Enums.BuildingStatus;
+import Enums.BuildingType;
+import Enums.RessourceType;
 import Game.Storage;
 
 public abstract class Building{
@@ -7,13 +10,20 @@ public abstract class Building{
 	int height;
 	int x;
 	int y;
-	Storage storage;
-	public Building(int x, int y, int w, int h, Storage store){
-		width = w;
-		height = h;
+	protected Storage storage;
+	protected BuildingStatus status;
+	BuildingType type;
+	public Building(int x, int y, BuildingType type){
+		width = type.getWidth();
+		height = type.getHeight();
 		this.x = x;
 		this.y = y;
-		this.storage = store;
+		this.type = type;
+		this.storage = createConstructionStorage();
+		status = BuildingStatus.INCONSTRUCTION;
+	}
+	private  Storage createConstructionStorage() {
+		return new Storage(0, type.getNeededRessources(), type.getAmountOfRessources());
 	}
 	
 	public void move(int x, int y){
@@ -36,10 +46,29 @@ public abstract class Building{
 	public Storage getStorage() {
 		return storage;
 	}
-
-	public void setStorage(Storage storage) {
-		this.storage = storage;
+	public BuildingStatus getBuildingStatus(){
+		return status;
 	}
+	public void setBuildingStatus(BuildingStatus status){
+		this.status = status;
+	}
+	public void addRessource(RessourceType type, int amount){
+		storage.addRessource(type, amount);
+		if(status == BuildingStatus.INCONSTRUCTION && storage.isFull()){
+			finishConstruction();
+		}
+	}
+	public void finishConstruction() {
+		status = BuildingStatus.FINISHED;
+		
+		if(type.getStorageSize()>0){
+			storage = new Storage(type.getStorageSize());
+		}else {
+			storage = null;
+		}
+		
+	}
+
 	
 	
 }

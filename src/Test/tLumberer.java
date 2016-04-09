@@ -15,6 +15,7 @@ public class tLumberer {
 		RessourceType type = RessourceType.WOOD;
 		
 		//initial Storage
+		lumberer.finishConstruction();
 		assertEquals(0, lumberer.getStorage().getAmountOfRessource(type));
 		//produce
 		lumberer.produce();

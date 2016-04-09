@@ -1,33 +1,26 @@
 package Test;
 
+import static org.junit.Assert.*;
+
 import org.junit.Test;
 
 import Buildings.Building;
 import Buildings.Lumberer;
+import Enums.BuildingStatus;
+import Enums.BuildingType;
 
 public class tBuilding {
-	Building building;
-	private void setup(){
-		building = new Lumberer(5, 5);
-	}
+
 	@Test
 	public void test() {
-//		setup();
-//		
-//		constructor();
-//		
-//		moveBuilding();
+		Building building = new Lumberer(0, 0);
+		assertEquals(BuildingStatus.INCONSTRUCTION, building.getBuildingStatus());
+		
+		for (int i = 0; i < BuildingType.Lumberer.getNeededRessources().length; i++) {
+			building.addRessource(BuildingType.Lumberer.getNeededRessources()[i], BuildingType.Lumberer.getAmountOfRessources()[i]);
+		}
+		
+		assertEquals(BuildingStatus.FINISHED, building.getBuildingStatus());
 	}
-//	private void constructor() {
-//		assertEquals(BuildingType.LUMBERER.width, building.getWidth());
-//		assertEquals(BuildingType.LUMBERER.height, building.getHeight());
-//		assertEquals(5, building.getX());
-//		assertEquals(5, building.getY());
-//	}
-//	private void moveBuilding(){
-//		building.move(1, 2);
-//		assertEquals(1, building.getX());
-//		assertEquals(2, building.getY());
-//	}
 
 }

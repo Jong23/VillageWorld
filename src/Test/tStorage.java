@@ -25,6 +25,19 @@ public class tStorage {
 		storage.removeRessource(type, 3);
 		assertEquals(2, storage.getAmountOfRessource(type));
 		
+		
+		//isFull
+		storage = new Storage(0);
+		assertTrue(storage.isFull());
+		
+		storage = new Storage(5, new RessourceType [] {RessourceType.WOOD});
+		assertFalse(storage.isFull());
+		storage.addRessource(RessourceType.WOOD, 5);
+		assertTrue(storage.isFull());
+		
+		// creation of Storage with needed ressources (construction)
+		storage = new Storage(5, new RessourceType [] {RessourceType.WOOD}, new int []{10});
+		assertEquals(-10, (storage.getAmountOfRessource(RessourceType.WOOD)));
 	}
 
 }

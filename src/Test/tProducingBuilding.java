@@ -7,6 +7,7 @@ import org.junit.Test;
 import com.sun.corba.se.impl.resolver.ORBDefaultInitRefResolverImpl;
 
 import Buildings.ProducingBuilding;
+import Enums.BuildingStatus;
 import Enums.BuildingType;
 import Enums.RessourceType;
 import Game.Storage;
@@ -21,7 +22,8 @@ public class tProducingBuilding {
 		class TestBuilding extends ProducingBuilding {
 			int counter = 0;
 			public TestBuilding() {
-				super(0,0,BuildingType.Lumberer, null);
+				super(0,0,BuildingType.Lumberer);
+				setBuildingStatus(BuildingStatus.FINISHED);
 			}
 			
 			@Override

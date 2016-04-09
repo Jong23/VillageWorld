@@ -3,6 +3,7 @@ package Buildings;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import Enums.BuildingStatus;
 import Enums.BuildingType;
 import Enums.RessourceType;
 import Game.Storage;
@@ -16,39 +17,42 @@ public abstract class ProducingBuilding extends Building implements Producing{
 	private static Clock clock = Clock.getInstance();
 	private boolean isWorking = false;
 	private int baseProductionTime;
-	public ProducingBuilding(int x, int y, BuildingType type, Storage store) {
-		super(x, y, type.getWidth(), type.getHeight(), store);
+	public ProducingBuilding(int x, int y, BuildingType type) {
+		super(x, y, type);
 		baseProductionTime = type.getBaseProductionTime();
 	}
 	private void work(){
-		if(isWorking){
+		if(isWorking && status == BuildingStatus.FINISHED){
 			while(activeWorkers < workers){
-				TimerTask task = new TimerTask() {
-					long workStarted = clock.getTime();
-					@Override
-					public void run() {
-						if(isWorking & (activeWorkers<= workers)){
-							long producedTime = clock.getTime()-workStarted;
-							if(producedTime > getProductionTime()){
-								while(producedTime >= getProductionTime()){
-									produce();
-									producedTime = producedTime - getProductionTime();
-								}
-								activeWorkers--;
-								work();
-								this.cancel();
-							
-							}
-						} else {
-							activeWorkers--;
-							this.cancel();
-						}
-					}
-				};
-				activeWorkers++;
-				timer.scheduleAtFixedRate(task, 0, 1000);
+				produceRessource();
 			}
 		}
+	}
+	private void produceRessource() {
+		TimerTask task = new TimerTask() {
+			long workStarted = clock.getTime();
+			@Override
+			public void run() {
+				if(isWorking & (activeWorkers<= workers)){
+					long producedTime = clock.getTime()-workStarted;
+					if(producedTime > getProductionTime()){
+						while(producedTime >= getProductionTime()){
+							produce();
+							producedTime = producedTime - getProductionTime();
+						}
+						activeWorkers--;
+						work();
+						this.cancel();
+					
+					}
+				} else {
+					activeWorkers--;
+					this.cancel();
+				}
+			}
+		};
+		activeWorkers++;
+		timer.scheduleAtFixedRate(task, 0, 1000);
 	}
 	private int getProductionTime(){
 		return baseProductionTime;
@@ -79,4 +83,5 @@ public abstract class ProducingBuilding extends Building implements Producing{
 			this.workers--;
 		}
 	}
+
 }
