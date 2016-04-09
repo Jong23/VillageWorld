@@ -1,6 +1,8 @@
 package GUI;
 
+import Editor.Editor;
 import GUI.Map.TileGrid;
+import Editor.Editor;
 
 public class StateManager {
 	
