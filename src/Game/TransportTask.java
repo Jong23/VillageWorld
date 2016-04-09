@@ -3,7 +3,7 @@ package Game;
 import Buildings.Building;
 import Enums.RessourceType;
 
-public class TransportTask {
+public class TransportTask implements Comparable<TransportTask>{
 	private Building from, to;
 	public Building getFrom() {
 		return from;
@@ -24,6 +24,14 @@ public class TransportTask {
 		this.to = to;
 		this.ressource = ressource;
 		this.amount = amount;
+	}
+	@Override
+	public String toString() {
+		return "From "+from+", To "+to+", "+amount+" "+ressource+ "\n";
+	}
+	@Override
+	public int compareTo(TransportTask o) {
+		return Integer.compare(o.getAmount(), this.getAmount());
 	}
 
 }

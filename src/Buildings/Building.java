@@ -13,6 +13,9 @@ public abstract class Building{
 	protected Storage storage;
 	protected BuildingStatus status;
 	BuildingType type;
+	public BuildingType getType() {
+		return type;
+	}
 	public Building(int x, int y, BuildingType type){
 		width = type.getWidth();
 		height = type.getHeight();
