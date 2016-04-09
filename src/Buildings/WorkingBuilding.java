@@ -9,7 +9,7 @@ import Enums.RessourceType;
 import Game.Storage;
 import helpers.Clock;
 
-public abstract class ProducingBuilding extends Building implements Producing{
+public abstract class WorkingBuilding extends Building{
 	static Timer timer = new Timer();
 	private int workers = 0; 
 	private int activeWorkers = 0;
@@ -17,7 +17,7 @@ public abstract class ProducingBuilding extends Building implements Producing{
 	private static Clock clock = Clock.getInstance();
 	private boolean isWorking = false;
 	private int baseProductionTime;
-	public ProducingBuilding(int x, int y, BuildingType type) {
+	public WorkingBuilding(int x, int y, BuildingType type) {
 		super(x, y, type);
 		baseProductionTime = type.getBaseProductionTime();
 	}
@@ -29,6 +29,7 @@ public abstract class ProducingBuilding extends Building implements Producing{
 		}
 	}
 	private void produceRessource() {
+		beforeWorkStarts();
 		TimerTask task = new TimerTask() {
 			long workStarted = clock.getTime();
 			@Override
@@ -84,4 +85,8 @@ public abstract class ProducingBuilding extends Building implements Producing{
 		}
 	}
 
+	
+	//interface
+	public abstract void produce();
+	protected abstract void beforeWorkStarts();
 }

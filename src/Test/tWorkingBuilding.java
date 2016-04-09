@@ -6,35 +6,20 @@ import org.junit.Test;
 
 import com.sun.corba.se.impl.resolver.ORBDefaultInitRefResolverImpl;
 
-import Buildings.ProducingBuilding;
+import Buildings.WorkingBuilding;
 import Enums.BuildingStatus;
 import Enums.BuildingType;
 import Enums.RessourceType;
 import Game.Storage;
+import Test.TestHelper.TestBuilding;
 import helpers.Clock;
 
-public class tProducingBuilding {
+public class tWorkingBuilding {
 
 	@Test 
 	public void test() {
 		int productionTime = 199;
-		BuildingType.Lumberer.setBaseProductionTime(productionTime);
-		class TestBuilding extends ProducingBuilding {
-			int counter = 0;
-			public TestBuilding() {
-				super(0,0,BuildingType.Lumberer);
-				setBuildingStatus(BuildingStatus.FINISHED);
-			}
-			
-			@Override
-			public void produce() {
-				counter ++;
-			}
-			public void resetCounter(){
-				counter = 0;
-			}
-			
-		}
+		BuildingType.LUMBERER.setBaseProductionTime(productionTime);
 		TestBuilding building = new TestBuilding();
 		//adding/removing workers
 		assertEquals(0, building.getWorkerCount());
@@ -58,7 +43,7 @@ public class tProducingBuilding {
 		try {
 			Thread.sleep(5*productionTime + 50);
 			building.stopWork();
-			assertEquals(0, building.counter); //produce called 5 times
+			assertEquals(0, building.getCounter()); //produce called 5 times
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -69,7 +54,7 @@ public class tProducingBuilding {
 		try {
 			Thread.sleep(5*productionTime + 50);
 			building.stopWork();
-			assertEquals(5, building.counter); //produce called 5 times
+			assertEquals(5, building.getCounter()); //produce called 5 times
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -81,7 +66,7 @@ public class tProducingBuilding {
 		try {
 			Thread.sleep(5*productionTime + 100);
 			building.stopWork();
-			assertEquals(10, building.counter); //produce called 5 times
+			assertEquals(10, building.getCounter()); //produce called 5 times
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -92,15 +77,15 @@ public class tProducingBuilding {
 		building.removeWorker();
 		assertEquals(0, building.getWorkerCount());
 		building.resetCounter();
-		assertEquals(0, building.counter); 
+		assertEquals(0, building.getCounter()); 
 		building.startWork();
 		try {
 			Thread.sleep(5*productionTime + 50);
-			assertEquals(0, building.counter); 
+			assertEquals(0, building.getCounter()); 
 			building.addWorker();
 			Thread.sleep(5*productionTime + 50);
 			building.stopWork();
-			assertEquals(5, building.counter); 
+			assertEquals(5, building.getCounter()); 
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -114,7 +99,7 @@ public class tProducingBuilding {
 		try {
 			Thread.sleep(5*productionTime + 50);
 			building.stopWork();
-			assertEquals(10, building.counter); //produce called 5 times
+			assertEquals(10, building.getCounter()); //produce called 5 times
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

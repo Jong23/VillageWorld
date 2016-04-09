@@ -1,7 +1,8 @@
 package Enums;
 
 public enum BuildingType {
-	Lumberer (2,3, 5000,5,new RessourceType []{RessourceType.WOOD, RessourceType.STONE},new int [] {20,10});
+	LUMBERER (2,3, 5000,5,new RessourceType []{RessourceType.WOOD, RessourceType.STONE}, new int [] {20,10}),
+	STORAGE(4,3,0,100,new RessourceType []{RessourceType.WOOD, RessourceType.STONE}, new int [] {20,40});
 	
 	
 	private int w,h;

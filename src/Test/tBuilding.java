@@ -16,8 +16,8 @@ public class tBuilding {
 		Building building = new Lumberer(0, 0);
 		assertEquals(BuildingStatus.INCONSTRUCTION, building.getBuildingStatus());
 		
-		for (int i = 0; i < BuildingType.Lumberer.getNeededRessources().length; i++) {
-			building.addRessource(BuildingType.Lumberer.getNeededRessources()[i], BuildingType.Lumberer.getAmountOfRessources()[i]);
+		for (int i = 0; i < BuildingType.LUMBERER.getNeededRessources().length; i++) {
+			building.addRessource(BuildingType.LUMBERER.getNeededRessources()[i], BuildingType.LUMBERER.getAmountOfRessources()[i]);
 		}
 		
 		assertEquals(BuildingStatus.FINISHED, building.getBuildingStatus());
