@@ -1,14 +1,14 @@
 package Buildings;
 
-import java.util.Date;
 
+import Enums.BuildingType;
 import Enums.RessourceType;
 import Game.Storage;
 
 public class Lumberer extends ProducingBuilding {
-	private static int baseProductionTime = 5000;
+	RessourceType type = RessourceType.WOOD;
 	public Lumberer(int x, int y) {
-		super(x, y, 2, 3, RessourceType.WOOD, baseProductionTime, new Storage(5));
+		super(x,y,BuildingType.Lumberer, new Storage(5));
 	}
 
 	@Override

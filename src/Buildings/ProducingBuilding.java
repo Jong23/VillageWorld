@@ -3,6 +3,7 @@ package Buildings;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import Enums.BuildingType;
 import Enums.RessourceType;
 import Game.Storage;
 import helpers.Clock;
@@ -14,12 +15,10 @@ public abstract class ProducingBuilding extends Building implements Producing{
 	private int maxWorkers = 1;
 	private static Clock clock = Clock.getInstance();
 	private boolean isWorking = false;
-	RessourceType type;
 	private int baseProductionTime;
-	public ProducingBuilding(int x, int y, int w, int h, RessourceType type, int baseProductionTime, Storage store) {
-		super(x, y, w, h, store);
-		this.type = type;
-		this.baseProductionTime = baseProductionTime;
+	public ProducingBuilding(int x, int y, BuildingType type, Storage store) {
+		super(x, y, type.getWidth(), type.getHeight(), store);
+		baseProductionTime = type.getBaseProductionTime();
 	}
 	private void work(){
 		if(isWorking){

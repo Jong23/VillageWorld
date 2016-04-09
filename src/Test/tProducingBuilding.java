@@ -7,6 +7,7 @@ import org.junit.Test;
 import com.sun.corba.se.impl.resolver.ORBDefaultInitRefResolverImpl;
 
 import Buildings.ProducingBuilding;
+import Enums.BuildingType;
 import Enums.RessourceType;
 import Game.Storage;
 import helpers.Clock;
@@ -16,10 +17,11 @@ public class tProducingBuilding {
 	@Test 
 	public void test() {
 		int productionTime = 199;
+		BuildingType.Lumberer.setBaseProductionTime(productionTime);
 		class TestBuilding extends ProducingBuilding {
 			int counter = 0;
 			public TestBuilding() {
-				super(0,0,0,0,null,productionTime,null);
+				super(0,0,BuildingType.Lumberer, null);
 			}
 			
 			@Override
