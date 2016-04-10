@@ -22,6 +22,8 @@ public class Editor {
 		editorUI.addButton("EditorDirt",loadTexture("dirt"), WIDTH-64,64);
 		editorUI.addButton("EditorWater",loadTexture("water"),WIDTH-64,128);
 		editorUI.addButton("EditorSand",loadTexture("sand"),WIDTH-64,192);
+		editorUI.addButton("EditorTree",loadTexture("tree"),WIDTH-64,256);
+		editorUI.addButton("EditorMountain",loadTexture("mountain"),WIDTH-64,320);
 
 	}
 	
@@ -39,6 +41,12 @@ public class Editor {
 			}
 			if(editorUI.isButtonClicked("EditorSand")){
 				selectedTile = TileType.Sand;
+			}
+			if(editorUI.isButtonClicked("EditorTree")){
+				selectedTile = TileType.Tree;
+			}
+			if(editorUI.isButtonClicked("EditorMountain")){
+				selectedTile = TileType.Mountain;
 			}
 		}
 	}
