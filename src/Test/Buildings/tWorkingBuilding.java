@@ -1,4 +1,4 @@
-package Test;
+package Test.Buildings;
 
 import static org.junit.Assert.*;
 
@@ -99,7 +99,7 @@ public class tWorkingBuilding {
 		try {
 			Thread.sleep(5*productionTime + 50);
 			building.stopWork();
-			assertEquals(10, building.getCounter()); //produce called 5 times
+			assertEquals(10, building.getCounter()); 
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

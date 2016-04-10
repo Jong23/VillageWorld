@@ -33,5 +33,18 @@ public class TransportTask implements Comparable<TransportTask>{
 	public int compareTo(TransportTask o) {
 		return Integer.compare(o.getAmount(), this.getAmount());
 	}
+	public int getTransportTime() {
+		return 1000;
+	}
+	public void finishTransport() {
+		from.getStorage().removeRessource(ressource, amount);
+		to.addRessource(ressource, amount);
+		System.out.println(amount+ " " + ressource + " moved from " + from + " to " + to);
+		
+	}
+	public void startTransport() {
+		// TODO Auto-generated method stub
+		
+	}
 
 }

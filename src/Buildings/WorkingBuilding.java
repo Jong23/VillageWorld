@@ -11,32 +11,33 @@ import helpers.Clock;
 
 public abstract class WorkingBuilding extends Building{
 	static Timer timer = new Timer();
-	private int workers = 0; 
-	private int activeWorkers = 0;
-	private int maxWorkers = 1;
-	private static Clock clock = Clock.getInstance();
-	private boolean isWorking = false;
+	protected int workers = 0; 
+	protected int activeWorkers = 0;
+	private int maxWorkers = 2;
+	protected static Clock clock = Clock.getInstance();
+	protected boolean isWorking = false;
 	private int baseProductionTime;
 	public WorkingBuilding(int x, int y, BuildingType type) {
 		super(x, y, type);
 		baseProductionTime = type.getBaseProductionTime();
 	}
-	private void work(){
+	protected void work(){
 		if(isWorking && status == BuildingStatus.FINISHED){
 			while(activeWorkers < workers){
-				produceRessource();
+				scheduleWork();
 			}
 		}
 	}
-	private void produceRessource() {
-		beforeWorkStarts();
+	//default work for productionBuildings
+	protected void scheduleWork() {
 		TimerTask task = new TimerTask() {
 			long workStarted = clock.getTime();
+			int productionTime = getProductionTime();
 			@Override
 			public void run() {
 				if(isWorking & (activeWorkers<= workers)){
 					long producedTime = clock.getTime()-workStarted;
-					if(producedTime > getProductionTime()){
+					if(producedTime > productionTime){
 						while(producedTime >= getProductionTime()){
 							produce();
 							producedTime = producedTime - getProductionTime();
@@ -84,9 +85,20 @@ public abstract class WorkingBuilding extends Building{
 			this.workers--;
 		}
 	}
-
+	protected void idleWork() {
+		//No Tasks available; Idle for 2 seconds
+		TimerTask task = new TimerTask() {
+			@Override
+			public void run() {
+				activeWorkers--;
+				work();
+				this.cancel();
+			}
+		};
+		activeWorkers++; 
+		timer.schedule(task, 2000);
+	}
 	
 	//interface
 	public abstract void produce();
-	protected abstract void beforeWorkStarts();
 }

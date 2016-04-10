@@ -3,6 +3,7 @@ package Buildings;
 import Enums.BuildingStatus;
 import Enums.BuildingType;
 import Enums.RessourceType;
+import Game.Island;
 import Game.Storage;
 
 public abstract class Building{
@@ -12,7 +13,14 @@ public abstract class Building{
 	int y;
 	protected Storage storage;
 	protected BuildingStatus status;
-	BuildingType type;
+	private BuildingType type;
+	private Island island;
+	public Island getIsland() {
+		return island;
+	}
+	public void setIsland(Island island) {
+		this.island = island;
+	}
 	public BuildingType getType() {
 		return type;
 	}

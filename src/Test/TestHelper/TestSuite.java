@@ -5,6 +5,7 @@ import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
 import Test.*;
+import Test.Buildings.*;
 
 
 @RunWith(Suite.class)
@@ -15,7 +16,8 @@ import Test.*;
 	tLumberer.class,
 	tStorage.class,
 	tWorkingBuilding.class,
-	tTransportTask.class
+	tTransportTask.class,
+	tStorageBuilding.class
 	})
 public class TestSuite {
 

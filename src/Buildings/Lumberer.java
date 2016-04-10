@@ -16,9 +16,4 @@ public class Lumberer extends WorkingBuilding {
 		addRessource(type, 1);
 	}
 
-	@Override
-	protected void beforeWorkStarts() {
-		//do nothing
-	}
-
 }
