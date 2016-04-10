@@ -37,13 +37,15 @@ public class TransportTask implements Comparable<TransportTask>{
 		return 1000;
 	}
 	public void finishTransport() {
-		from.getStorage().removeRessource(ressource, amount);
-		to.addRessource(ressource, amount);
+		from.getStorage().takeReservedRessource(ressource, amount);
+		to.getStorage().deliverComingRessource(ressource, amount);
 		System.out.println(amount+ " " + ressource + " moved from " + from + " to " + to);
 		
 	}
 	public void startTransport() {
-		// TODO Auto-generated method stub
+		from.getStorage().reserveRessource(ressource, amount);
+		to.getStorage().reserveComingRessource(ressource, amount);
+		System.out.println(amount+ " " + ressource + " sent from " + from + " to " + to);
 		
 	}
 

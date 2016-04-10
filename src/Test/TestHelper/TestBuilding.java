@@ -23,8 +23,4 @@ public class TestBuilding extends WorkingBuilding {
 		return counter;
 	}
 
-	@Override
-	protected void beforeWorkStarts() {
-		//do nothing
-	}
 }

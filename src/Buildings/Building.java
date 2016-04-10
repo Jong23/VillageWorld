@@ -34,7 +34,9 @@ public abstract class Building{
 		status = BuildingStatus.INCONSTRUCTION;
 	}
 	private  Storage createConstructionStorage() {
-		return new Storage(0, type.getNeededRessources(), type.getAmountOfRessources());
+		Storage storage = new Storage(0, type.getNeededRessources(), type.getAmountOfRessources());
+		storage.setBuilding(this);
+		return storage;
 	}
 	
 	public void move(int x, int y){
@@ -63,17 +65,16 @@ public abstract class Building{
 	public void setBuildingStatus(BuildingStatus status){
 		this.status = status;
 	}
-	public void addRessource(RessourceType type, int amount){
-		storage.addRessource(type, amount);
-		if(status == BuildingStatus.INCONSTRUCTION && storage.isFull()){
-			finishConstruction();
-		}
-	}
 	public void finishConstruction() {
 		status = BuildingStatus.FINISHED;
 		
 		if(type.getStorageSize()>0){
-			storage = new Storage(type.getStorageSize());
+			if(type.getProducedRessource() == null){
+				storage = new Storage(type.getStorageSize());
+			} else {
+				storage = new Storage(type.getStorageSize(), type.getProducedRessource());
+			}
+			storage.setBuilding(this);
 		}else {
 			storage = null;
 		}

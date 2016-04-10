@@ -21,8 +21,8 @@ public class tStorageBuilding {
 		island.addBuilding(storageBuilding);
 		storageBuilding.setIsland(island);
 		storageBuilding.finishConstruction();
-		storageBuilding.addRessource(RessourceType.WOOD, 100);
-		storageBuilding.addRessource(RessourceType.STONE, 100);
+		storageBuilding.getStorage().addRessource(RessourceType.WOOD, 100);
+		storageBuilding.getStorage().addRessource(RessourceType.STONE, 100);
 		storageBuilding.setWorkerSpeed(10);
 		storageBuilding.addWorker();
 		storageBuilding.addWorker();

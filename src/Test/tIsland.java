@@ -26,8 +26,8 @@ public class tIsland {
 		island = new Island();
 		storageBuilding = new StorageBuilding(0, 0);
 		storageBuilding.finishConstruction();
-		storageBuilding.addRessource(RessourceType.WOOD, 100);
-		storageBuilding.addRessource(RessourceType.STONE, 100);
+		storageBuilding.getStorage().addRessource(RessourceType.WOOD, 100);
+		storageBuilding.getStorage().addRessource(RessourceType.STONE, 100);
 		island.addBuilding(storageBuilding);
 		lumberer = new Lumberer(0, 0);
 		island.addBuilding(lumberer);

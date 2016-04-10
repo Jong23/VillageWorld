@@ -13,7 +13,7 @@ public class Lumberer extends WorkingBuilding {
 
 	@Override
 	public void produce() {
-		addRessource(type, 1);
+		storage.addRessource(type, 1);
 	}
 
 }
