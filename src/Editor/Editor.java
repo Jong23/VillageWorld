@@ -1,33 +1,62 @@
 package Editor;
 
-import static helpers.Artist.drawQuadTex;
-import static helpers.Artist.loadTexture;
 
 import org.lwjgl.input.Mouse;
-import org.newdawn.slick.opengl.Texture;
-
 import GUI.Map.TileGrid;
 import GUI.Map.TileType;
+import GUI.UI;
+
 import static helpers.Artist.*;
 
 public class Editor {
 	
 	private TileGrid map;
-	private Texture editorToolbarTexture;
+	private UI editorUI;
+	private TileType selectedTile;
 	
 	public Editor(){
+		editorUI = new UI();
 		this.map = new TileGrid();
-		this.editorToolbarTexture = loadTexture("EditorToolbar");
+		selectedTile = TileType.Grass;
+		editorUI.addButton("EditorGrass",loadTexture("grass"),WIDTH-64, 0);
+		editorUI.addButton("EditorDirt",loadTexture("dirt"), WIDTH-64,64);
+		editorUI.addButton("EditorWater",loadTexture("water"),WIDTH-64,128);
+		editorUI.addButton("EditorSand",loadTexture("sand"),WIDTH-64,192);
+
+	}
+	
+	private void updateButtons(){
+		if(Mouse.isButtonDown(0)){
+			if(editorUI.isButtonClicked("EditorGrass")){
+				System.out.println("Button pressed");
+				selectedTile = TileType.Grass;
+			}
+			if(editorUI.isButtonClicked("EditorDirt")){
+				selectedTile = TileType.Dirt;
+			}
+			if(editorUI.isButtonClicked("EditorWater")){
+				selectedTile = TileType.Water;
+			}
+			if(editorUI.isButtonClicked("EditorSand")){
+				selectedTile = TileType.Sand;
+			}
+		}
 	}
 	
 	public void update(){
 		map.draw();
-		drawQuadTex(editorToolbarTexture, WIDTH-256, HEIGHT-128, 256, 128,0);
-		//setTile();
+		editorUI.draw();
+		updateButtons();
+
+		//Handle Mouse Input
+		if(Mouse.isButtonDown(0)){
+			setTile(selectedTile);
+		}
+		
 	}
 	
-	public void setTile(){
-		map.setTile((int) Math.floor(Mouse.getX()/32),(int)Math.floor((HEIGHT-Mouse.getY()-1)/32), TileType.Dirt);
+	public void setTile(TileType type){
+			map.setTile((int) Math.floor(Mouse.getX()/32),(int)Math.floor((HEIGHT-Mouse.getY()-1)/32), type);
 	}
 
 }

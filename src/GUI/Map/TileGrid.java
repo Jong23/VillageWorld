@@ -24,6 +24,6 @@ public class TileGrid {
 		}
 	}
 	public void setTile(int x, int y, TileType type) {
-		tiles[x][y].setTexture(loadTexture(TileType.Dirt.textureName));
+		tiles[x][y].setTexture(loadTexture(type.textureName));
 	}
 }
