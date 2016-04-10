@@ -77,5 +77,6 @@ public class Artist {
 		}
 		return tex;
 	}
+	
 		
 }

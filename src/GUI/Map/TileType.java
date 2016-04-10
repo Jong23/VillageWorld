@@ -2,7 +2,7 @@ package GUI.Map;
 
 public enum TileType {
 
-	Grass("GRASS", true), Dirt("DIRT", false);
+	Grass("GRASS", true), Dirt("DIRT", false), Water("WATER", false), Sand("SAND",false);
 	
 	String textureName;
 	boolean buildable;
