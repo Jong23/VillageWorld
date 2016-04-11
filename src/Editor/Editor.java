@@ -1,9 +1,12 @@
 package Editor;
 
 
+import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 import GUI.Map.TileGrid;
 import GUI.Map.TileType;
+import GUI.StateManager.GameState;
+import GUI.StateManager;
 import GUI.UI;
 
 import static helpers.Artist.*;
@@ -24,6 +27,7 @@ public class Editor {
 		editorUI.addButton("EditorSand",loadTexture("sand"),WIDTH-64,192);
 		editorUI.addButton("EditorTree",loadTexture("tree"),WIDTH-64,256);
 		editorUI.addButton("EditorMountain",loadTexture("mountain"),WIDTH-64,320);
+		editorUI.addButton("EditorQuit",loadTexture("Button_MainMenu_Quit"),0,0);
 
 	}
 	
@@ -48,6 +52,9 @@ public class Editor {
 			if(editorUI.isButtonClicked("EditorMountain")){
 				selectedTile = TileType.Mountain;
 			}
+			if(editorUI.isButtonClicked("EditorQuit")){
+				StateManager.setState(GameState.MAINMENU);
+			}
 		}
 	}
 	
@@ -59,6 +66,9 @@ public class Editor {
 		//Handle Mouse Input
 		if(Mouse.isButtonDown(0)){
 			setTile(selectedTile);
+		}
+		if(Keyboard.isKeyDown(Keyboard.KEY_LEFT)){
+			
 		}
 		
 	}

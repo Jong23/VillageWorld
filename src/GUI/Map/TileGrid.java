@@ -26,4 +26,14 @@ public class TileGrid {
 	public void setTile(int x, int y, TileType type) {
 		tiles[x][y].setTexture(loadTexture(type.textureName));
 	}
+	/*
+	public TileGrid moveTileGrid(String direction){
+		switch (direction){
+		case "left":
+			return this.tiles;
+			
+		}
+		return this;
+	}
+	*/
 }
