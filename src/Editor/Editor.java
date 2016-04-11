@@ -1,8 +1,14 @@
 package Editor;
 
 
+import static org.lwjgl.opengl.GL11.glOrtho;
+
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
+import org.lwjgl.util.glu.GLU;
+
+import com.sun.corba.se.impl.oa.poa.ActiveObjectMap.Key;
+
 import GUI.Map.TileGrid;
 import GUI.Map.TileType;
 import GUI.StateManager.GameState;
@@ -19,7 +25,8 @@ public class Editor {
 	
 	public Editor(){
 		editorUI = new UI();
-		this.map = new TileGrid();
+		this.map = new TileGrid(160,120);
+
 		selectedTile = TileType.Grass;
 		editorUI.addButton("EditorGrass",loadTexture("grass"),WIDTH-64, 0);
 		editorUI.addButton("EditorDirt",loadTexture("dirt"), WIDTH-64,64);
@@ -59,22 +66,42 @@ public class Editor {
 	}
 	
 	public void update(){
-		map.draw();
-		editorUI.draw();
-		updateButtons();
+		if(Keyboard.isKeyDown(Keyboard.KEY_RIGHT)){
+			System.out.println("right pressed");
+			map.incrementOffsetX();
+
+		}
+		
+		if(Keyboard.isKeyDown(Keyboard.KEY_LEFT)){
+			System.out.println("Left pressed");
+			map.decrementOffsetX();
+
+		}
+		if(Keyboard.isKeyDown(Keyboard.KEY_UP)){
+			System.out.println("UP pressed");
+			map.incrementZoom();
+
+		}
+		if(Keyboard.isKeyDown(Keyboard.KEY_DOWN)){
+			System.out.println("Down pressed");
+			map.decrementZoom();
+
+		}
 
 		//Handle Mouse Input
 		if(Mouse.isButtonDown(0)){
 			setTile(selectedTile);
 		}
-		if(Keyboard.isKeyDown(Keyboard.KEY_LEFT)){
-			
-		}
 		
+		map.draw();
+		editorUI.draw();
+		updateButtons();
+
 	}
 	
 	public void setTile(TileType type){
-			map.setTile((int) Math.floor(Mouse.getX()/32),(int)Math.floor((HEIGHT-Mouse.getY()-1)/32), type);
+			//map.setTile((int) Math.floor(Mouse.getX()/32),(int)Math.floor((HEIGHT-Mouse.getY()-1)/32), type);
+		map.setTile(Mouse.getX(), HEIGHT-Mouse.getY()-1, type);
 	}
 
 }

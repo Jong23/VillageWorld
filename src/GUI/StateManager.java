@@ -28,7 +28,7 @@ public class StateManager {
 		case GAME:
 			if(game==null){
 				
-				map = new TileGrid();
+				map = new TileGrid(40,30);
 				game= new Game(map);
 			}
 			game.update();
@@ -37,7 +37,7 @@ public class StateManager {
 		case EDITOR:
 			if(editor==null){
 				
-				map = new TileGrid();
+				map = new TileGrid(40,30);
 				editor= new Editor();
 			}
 			editor.update();

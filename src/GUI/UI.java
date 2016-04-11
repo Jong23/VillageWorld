@@ -11,6 +11,7 @@ import org.newdawn.slick.opengl.Texture;
 public class UI {
 	
 	private ArrayList<Button> buttonList;
+
 	
 	// public static boolean scrollingEnabled = false;
 	// public static int cameraHeight = 1;
