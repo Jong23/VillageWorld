@@ -38,31 +38,39 @@ public class Editor {
 
 	}
 	
-	private void updateButtons(){
+	private boolean updateButtons(){
 		if(Mouse.isButtonDown(0)){
 			if(editorUI.isButtonClicked("EditorGrass")){
 				System.out.println("Button pressed");
 				selectedTile = TileType.Grass;
+				return true;
 			}
 			if(editorUI.isButtonClicked("EditorDirt")){
 				selectedTile = TileType.Dirt;
+				return true;
 			}
 			if(editorUI.isButtonClicked("EditorWater")){
 				selectedTile = TileType.Water;
+				return true;
 			}
 			if(editorUI.isButtonClicked("EditorSand")){
 				selectedTile = TileType.Sand;
+				return true;
 			}
 			if(editorUI.isButtonClicked("EditorTree")){
 				selectedTile = TileType.Tree;
+				return true;
 			}
 			if(editorUI.isButtonClicked("EditorMountain")){
 				selectedTile = TileType.Mountain;
+				return true;
 			}
 			if(editorUI.isButtonClicked("EditorQuit")){
 				StateManager.setState(GameState.MAINMENU);
-			}
+				return true;
+			}	
 		}
+		return false;
 	}
 	
 	public void update(){
@@ -89,7 +97,7 @@ public class Editor {
 		}
 
 		//Handle Mouse Input
-		if(Mouse.isButtonDown(0)){
+		if(Mouse.isButtonDown(0) && !updateButtons()){
 			setTile(selectedTile);
 		}
 		
