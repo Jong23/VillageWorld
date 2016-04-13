@@ -67,6 +67,21 @@ public class Artist {
 		glEnd();
 		glLoadIdentity();
 	}
+	
+	public static void drawBlackFramePart(float x, float y, float width, float height){
+//		glTranslatef(x,y,0);
+//		glColor3f(255, 255, 255);
+//		glBegin(GL_QUADS);
+//		glVertex2f(0,0);
+//		glVertex2f(width,0);
+//		glVertex2f(width,height);
+//		glVertex2f(0,height);
+//		glEnd();
+//		glLoadIdentity();
+		drawQuadTex(loadTexture("black"), x, y, width, height, 0);
+		
+		
+	}
 	public static Texture loadTexture(String name){
 		Texture tex = null;
 		InputStream in = ResourceLoader.getResourceAsStream("res/" +name+".png");

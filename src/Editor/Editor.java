@@ -68,23 +68,23 @@ public class Editor {
 	public void update(){
 		if(Keyboard.isKeyDown(Keyboard.KEY_RIGHT)){
 			System.out.println("right pressed");
-			map.incrementOffsetX();
+			map.incrementShiftX();
 
 		}
 		
 		if(Keyboard.isKeyDown(Keyboard.KEY_LEFT)){
 			System.out.println("Left pressed");
-			map.decrementOffsetX();
+			map.decrementShiftX();
 
 		}
 		if(Keyboard.isKeyDown(Keyboard.KEY_UP)){
 			System.out.println("UP pressed");
-			map.incrementZoom();
+			map.zoomIn();
 
 		}
 		if(Keyboard.isKeyDown(Keyboard.KEY_DOWN)){
 			System.out.println("Down pressed");
-			map.decrementZoom();
+			map.zoomOut();
 
 		}
 

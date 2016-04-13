@@ -9,17 +9,12 @@ public class Tile {
 	private Texture texture;
 	private TileType type;
 	
-	public Tile(float x, float y, float width, float height, TileType type){
+	public Tile(TileType type){
 		this.x = x;
 		this.y = y;
 		this.width = width;
 		this.height = height;
 		this.texture = loadTexture(type.textureName);
-	}
-	
-	public void draw(){
-		drawQuadTex(texture, x, y, width, height,0);
-
 	}
 
 	public float getX() {
