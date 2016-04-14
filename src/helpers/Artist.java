@@ -4,7 +4,7 @@ import static org.lwjgl.opengl.GL11.*;
 
 import java.io.IOException;
 import java.io.InputStream;
-
+import java.util.HashMap;
 
 import org.lwjgl.LWJGLException;
 import org.lwjgl.input.Mouse;
@@ -18,6 +18,7 @@ public class Artist {
 	
 	public static final int WIDTH = 1280;
 	public static final int HEIGHT = 960;
+	public static HashMap<String, Texture> textures = new HashMap<>();
 	
 	public static void beginSession(){
 		Display.setTitle("Village World");
@@ -83,14 +84,20 @@ public class Artist {
 		
 	}
 	public static Texture loadTexture(String name){
-		Texture tex = null;
-		InputStream in = ResourceLoader.getResourceAsStream("res/" +name+".png");
-		try {
-			tex = TextureLoader.getTexture("png", in);
-		} catch (IOException e) {
-			e.printStackTrace();
+		
+		if(textures.containsKey(name)){ 
+			return textures.get(name);
+		} else {
+			InputStream in = ResourceLoader.getResourceAsStream("res/" +name+".png");
+			try {
+				Texture tex = TextureLoader.getTexture("png", in);
+				textures.put(name, tex);
+				return tex;
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
-		return tex;
+		return null;
 	}
 	
 		

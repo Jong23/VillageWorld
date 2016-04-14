@@ -10,6 +10,7 @@ public class Tile {
 	private TileType type;
 	
 	public Tile(TileType type){
+		this.type=type;
 		this.x = x;
 		this.y = y;
 		this.width = width;
@@ -58,10 +59,11 @@ public class Tile {
 	}
 
 	public TileType getType() {
-		return type;
+		return this.type;
 	}
 
 	public void setType(TileType type) {
 		this.type = type;
+		this.texture = loadTexture(type.textureName);
 	}
 }

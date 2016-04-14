@@ -10,6 +10,7 @@ import org.lwjgl.util.glu.GLU;
 import com.sun.corba.se.impl.oa.poa.ActiveObjectMap.Key;
 
 import GUI.Map.TileGrid;
+import GUI.Map.TileGrid2;
 import GUI.Map.TileType;
 import GUI.StateManager.GameState;
 import GUI.StateManager;
@@ -19,13 +20,13 @@ import static helpers.Artist.*;
 
 public class Editor {
 	
-	private TileGrid map;
+	private TileGrid2 map;
 	private UI editorUI;
 	private TileType selectedTile;
 	
 	public Editor(){
 		editorUI = new UI();
-		this.map = new TileGrid(160,120);
+		this.map = new TileGrid2(160,80);
 
 		selectedTile = TileType.Grass;
 		editorUI.addButton("EditorGrass",loadTexture("grass"),WIDTH-64, 0);
@@ -75,24 +76,20 @@ public class Editor {
 	
 	public void update(){
 		if(Keyboard.isKeyDown(Keyboard.KEY_RIGHT)){
-			System.out.println("right pressed");
-			map.incrementShiftX();
+			map.incrementOffsetX();
 
 		}
 		
 		if(Keyboard.isKeyDown(Keyboard.KEY_LEFT)){
-			System.out.println("Left pressed");
-			map.decrementShiftX();
-
-		}
-		if(Keyboard.isKeyDown(Keyboard.KEY_UP)){
-			System.out.println("UP pressed");
-			map.zoomIn();
+			map.decrementOffsetX();
 
 		}
 		if(Keyboard.isKeyDown(Keyboard.KEY_DOWN)){
-			System.out.println("Down pressed");
-			map.zoomOut();
+			map.incrementOffsetY();
+
+		}
+		if(Keyboard.isKeyDown(Keyboard.KEY_UP)){
+			map.decrementOffsetY();
 
 		}
 
@@ -100,6 +97,16 @@ public class Editor {
 		if(Mouse.isButtonDown(0) && !updateButtons()){
 			setTile(selectedTile);
 		}
+		
+	    int dWheel = Mouse.getDWheel();
+	    
+	    if (dWheel < 0) {
+	        map.zoomOut();
+	        System.out.println(dWheel);
+	    } else if (dWheel > 0){
+	        map.zoomIn();
+	        System.out.println(dWheel);
+	   }
 		
 		map.draw();
 		editorUI.draw();
