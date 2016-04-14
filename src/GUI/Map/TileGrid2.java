@@ -64,7 +64,7 @@ public class TileGrid2 {
 	}
 	
 	public void incrementOffsetX() {
-		if((this.width*32>1280) && this.offsetX<this.tiles.length-1280/this.tilesize-10){
+		if(this.offsetX<this.tiles.length-1280/this.tilesize/zoom-10){
 			this.offsetX++;
 		}
 	}
@@ -76,7 +76,7 @@ public class TileGrid2 {
 	}
 	
 	public void incrementOffsetY() {
-		if((this.height*32>960) && this.offsetY<this.tiles[0].length-960/this.tilesize-10){
+		if(this.offsetY<this.tiles[0].length-960/this.tilesize/zoom-10){
 			this.offsetY++;
 		}
 	}
