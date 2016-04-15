@@ -3,6 +3,14 @@ package Editor;
 
 import static org.lwjgl.opengl.GL11.glOrtho;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.util.glu.GLU;
@@ -36,6 +44,8 @@ public class Editor {
 		editorUI.addButton("EditorTree",loadTexture("tree"),WIDTH-64,256);
 		editorUI.addButton("EditorMountain",loadTexture("mountain"),WIDTH-64,320);
 		editorUI.addButton("EditorQuit",loadTexture("Button_MainMenu_Quit"),0,0);
+		editorUI.addButton("EditorSave",loadTexture("Button_Save"),254,0);
+		editorUI.addButton("EditorLoad",loadTexture("Button_Load"),508,0);
 
 	}
 	
@@ -68,8 +78,41 @@ public class Editor {
 			}
 			if(editorUI.isButtonClicked("EditorQuit")){
 				StateManager.setState(GameState.MAINMENU);
+				
 				return true;
-			}	
+			}
+			// saving and loading tilegrids (still under construction)
+			if(editorUI.isButtonClicked("EditorSave")){
+				try {
+					ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("map.data"));
+					oos.writeObject(this.map);
+				} catch (FileNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				return true;
+			}
+			if(editorUI.isButtonClicked("EditorLoad")){
+				try {
+					ObjectInputStream ois = new ObjectInputStream(new FileInputStream("map.data"));
+					try {
+						this.map=(TileGrid2) ois.readObject();
+					} catch (ClassNotFoundException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				} catch (FileNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				return true;
+			}
 		}
 		return false;
 	}

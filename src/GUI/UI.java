@@ -1,6 +1,10 @@
 package GUI;
 
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.ArrayList;
+
+import javax.swing.SwingUtilities;
 
 import static helpers.Artist.*;
 import static org.lwjgl.opengl.GL11.glOrtho;
@@ -29,6 +33,14 @@ public class UI {
 		float mouseY = HEIGHT - Mouse.getY()-1;
 		//ist der Zeiger auf dem Button?
 		if(Mouse.getX() > b.getX() && Mouse.getX() < b.getX() + b.getWidth()  && mouseY > b.getY()&& mouseY < b.getY() + b.getHeight()){
+//			while(mouseListener.mouseLeftButtonPressed){
+//				try {
+//					Thread.sleep(50);
+//				} catch (InterruptedException e) {
+//					// TODO Auto-generated catch block
+//					e.printStackTrace();
+//				}
+//			}
 			return true;
 		}
 		return false;
@@ -63,3 +75,4 @@ public class UI {
 	}
 */
 }
+

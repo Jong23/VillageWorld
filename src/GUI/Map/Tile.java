@@ -2,11 +2,13 @@ package GUI.Map;
 
 import static helpers.Artist.*;
 
+import java.io.Serializable;
+
 import org.newdawn.slick.opengl.Texture;
 
-public class Tile {
+public class Tile implements Serializable{
 	private float x, y, width, height;
-	private Texture texture;
+//	private Texture texture;
 	private TileType type;
 	
 	public Tile(TileType type){
@@ -15,7 +17,6 @@ public class Tile {
 		this.y = y;
 		this.width = width;
 		this.height = height;
-		this.texture = loadTexture(type.textureName);
 	}
 
 	public float getX() {
@@ -51,11 +52,7 @@ public class Tile {
 	}
 
 	public Texture getTexture() {
-		return texture;
-	}
-
-	public void setTexture(Texture texture) {
-		this.texture = texture;
+		return loadTexture(type.textureName);
 	}
 
 	public TileType getType() {
@@ -64,6 +61,5 @@ public class Tile {
 
 	public void setType(TileType type) {
 		this.type = type;
-		this.texture = loadTexture(type.textureName);
 	}
 }

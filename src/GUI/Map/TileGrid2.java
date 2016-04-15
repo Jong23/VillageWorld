@@ -1,9 +1,11 @@
 package GUI.Map;
 import static helpers.Artist.*;
 
+import java.io.Serializable;
+
 import Game.Constants;
 
-public class TileGrid2 {
+public class TileGrid2 implements Serializable {
 
 	public Tile[][] tiles;
 	private int offsetX = 0;
@@ -18,7 +20,7 @@ public class TileGrid2 {
 		tiles = new Tile[width+10][height+10];
 		for(int i=0; i<tiles.length; i++){
 			for(int j=0; j<tiles[i].length;j++){
-				tiles[i][j] = new Tile(TileType.Grass);
+				tiles[i][j] = new Tile(TileType.Water);
 			}
 		}
 		//Top Nothing
@@ -46,8 +48,8 @@ public class TileGrid2 {
 			}
 		}
 	}
+	
 	public void draw(){
-
 		for(int i=0; i<width; i++){
 			for(int j=0; j<height;j++){
 				Tile t = tiles[i][j];
@@ -57,9 +59,8 @@ public class TileGrid2 {
 	}
 	
 	public void setTile(int x, int y, TileType type) {
-		//map.setTile((int) Math.floor(Mouse.getX()/32),(int)Math.floor((HEIGHT-Mouse.getY()-1)/32), type);
 		if(tiles[x/(tilesize*zoom)+offsetX][y/(tilesize*zoom)+offsetY].getType()!=TileType.Nothing){
-			tiles[x/(tilesize*zoom)+offsetX][y/(tilesize*zoom)+offsetY].setTexture(loadTexture(type.textureName));
+			tiles[x/(tilesize*zoom)+offsetX][y/(tilesize*zoom)+offsetY].setType(type);
 		}
 	}
 	
@@ -89,26 +90,20 @@ public class TileGrid2 {
 	
 	public void zoomIn() {
 		if(this.zoom == 1){
-			this.zoom = 2;
-			
+			this.zoom = 2;		
 		}
 		else if(this.zoom == 2){
-
 			this.zoom = 4;
 		}
 	}
 	
 	public void zoomOut() {
-
 		if(this.zoom == 4){
-
 			this.zoom = 2;
 		}
 		else if(this.zoom  == 2){
-
 			this.zoom  = 1;
 		}
-
 	}
 	
 }

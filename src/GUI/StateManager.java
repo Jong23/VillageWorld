@@ -1,5 +1,7 @@
 package GUI;
 
+import org.lwjgl.input.Mouse;
+
 import Editor.Editor;
 import GUI.Map.TileGrid;
 import Editor.Editor;
@@ -15,6 +17,7 @@ public class StateManager {
 	public static Game game;
 	public static Editor editor;
 	public static TileGrid map;
+	public static boolean buttonIsPressed = false;
 	
 	public static void update(){
 		switch(gameState){
@@ -44,9 +47,16 @@ public class StateManager {
 			
 			break;
 		}
+		
 	}
 	
 	public static void setState(GameState newState){
 		gameState = newState;
+		try {
+			Thread.sleep(200);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }
