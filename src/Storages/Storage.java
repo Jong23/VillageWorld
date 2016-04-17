@@ -17,8 +17,15 @@ public abstract class Storage {
 	protected HashMap<RessourceType, Integer> comingRessources;
 	protected ArrayList<RessourceType> neededRessourcesForProduction;
 	protected RessourceType producedRessource;
+	
 	protected Building building;
 
+	public RessourceType getProducedRessource() {
+		return producedRessource;
+	}
+	public void setProducedRessource(RessourceType producedRessource) {
+		this.producedRessource = producedRessource;
+	}
 	protected  Storage(int size) {
 		neededRessourcesForProduction = new ArrayList<RessourceType>();
 		ressources = new HashMap<>();
@@ -110,5 +117,11 @@ public abstract class Storage {
 			}
 			building.finishConstruction();
 		}
+	}
+	public int getAmountOfProducedRessource(){
+		return getAmountOfRessource(producedRessource);
+	}
+	public int getAvailableStorageForProducedRessource(){
+		return size-getAmountOfRessource(producedRessource);
 	}
 }

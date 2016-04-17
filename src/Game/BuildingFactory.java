@@ -17,13 +17,13 @@ public class BuildingFactory {
 	}
 	public void buildFinishedStorage(){
 		WorkingBuilding building = new StorageBuilding(0, 0);
-		building.setIsland(island);
+		island.addBuilding(building);
 		building.finishConstruction();
 		building.getStorage().addRessource(RessourceType.WOOD, 20);
 		building.getStorage().addRessource(RessourceType.STONE, 100);
 		building.addWorker();
+		building.addWorker();
 		building.startWork();
-		island.addBuilding(building);
 		System.out.println("Storage build");
 	}
 	public void buildLumberer(){
@@ -47,6 +47,9 @@ public class BuildingFactory {
 			amount += storage.getAvailableAmountOfRessource(type);
 		}
 		System.out.println("Amount of "+type+": "+amount);
+	}
+	public void getFinishedBuildings(){
+		System.out.println(island.getBuildingsFinished().size());
 	}
 
 }

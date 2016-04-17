@@ -29,7 +29,7 @@ public class Clock {
 				gameTime = gameTime + ((currentTime - lastTime)*speed);
 				lastTime = currentTime;
 			}
-		}, 0, 500);
+		}, 0, (500/speed));
 		
 	}
 	public static Clock getInstance(){

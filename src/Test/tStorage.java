@@ -6,6 +6,8 @@ import java.util.HashMap;
 
 import org.junit.Test;
 
+import com.sun.xml.internal.ws.api.streaming.XMLStreamReaderFactory.Woodstox;
+
 import Enums.RessourceType;
 import Storages.ConstructionStorage;
 import Storages.ConsumptionStorage;
@@ -53,6 +55,14 @@ public class tStorage {
 		storage.addRessource(RessourceType.STONE, 5);
 		assertEquals(5, storage.getAvailableAmountOfRessource(RessourceType.WOOD));
 		assertEquals(0, storage.getAvailableAmountOfRessource(RessourceType.STONE));
+		
+		//Storage that produces ressource
+		storage = new ProductionStorage(7, RessourceType.WOOD);
+		storage.addRessource(RessourceType.WOOD, 3);
+		assertEquals(RessourceType.WOOD, storage.getProducedRessource());
+		assertEquals(4, storage.getAvailableStorageForProducedRessource());
+		assertEquals(3, storage.getAmountOfProducedRessource());
+		
 	
 	}
 

@@ -10,6 +10,7 @@ public class ProductionConsumptionStorage extends Storage {
 	// storage that consumes ressources and produces a ressource
 	public ProductionConsumptionStorage(int size, RessourceType [] neededRessources, RessourceType producedRessource) {
 		super(size);
+		this.producedRessource = producedRessource;
 		neededRessourcesForProduction = new ArrayList<RessourceType> (Arrays.asList(neededRessources));
 		for (int i = 0; i < neededRessources.length; i++) {
 			ressources.put(neededRessources[i], 0);

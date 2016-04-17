@@ -9,12 +9,15 @@ import Storages.StandardStorage;
 import Storages.Storage;
 
 public class StorageBuilding extends WorkingBuilding {
+	int transportationAmount = 2;
+
+
 	int workerSpeed = 1;
 	public int getWorkerSpeed() {
 		return workerSpeed;
 	}
 
-
+	
 	public void setWorkerSpeed(int workerSpeed) {
 		this.workerSpeed = workerSpeed;
 	}
@@ -27,12 +30,12 @@ public class StorageBuilding extends WorkingBuilding {
 	
 	@Override
 	public void scheduleWork(){
-		ArrayList<TransportTask> transportTasks = getIsland().getTransportsToCreateBuilding();
-		if(transportTasks.size() == 0){
+		TransportTask transportTask = getIsland().getTransportTask(getTransportationAmount());
+		if(transportTask == null ){
+			System.out.println("idle");
 			idleWork();
 			return;
 		}
-		TransportTask transportTask = transportTasks.get(0);
 		transportTask.startTransport();
 		long workStarted = clock.getTime();
 		int transportTime = transportTask.getTransportTime() / workerSpeed;
@@ -51,8 +54,9 @@ public class StorageBuilding extends WorkingBuilding {
 			}
 		};
 		activeWorkers++;
-		timer.schedule(task, 0, (1000/workerSpeed));
+		timer.schedule(task, 0, (1000/(workerSpeed)));
 	}
+
 	@Override
 	public void produce() {
 		//not needed
@@ -62,5 +66,15 @@ public class StorageBuilding extends WorkingBuilding {
 	@Override
 	protected Storage getFinalStorage() {
 		return new StandardStorage(100);
+	}
+	public int getTransportationAmount() {
+		return transportationAmount;
+	}
+	
+	
+	public void setTransportationAmount(int transportationAmount) {
+		if(transportationAmount > 0){
+			this.transportationAmount = transportationAmount;
+		}
 	}
 }

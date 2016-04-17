@@ -70,6 +70,9 @@ public abstract class Building{
 		status = BuildingStatus.FINISHED;
 		
 		storage = getFinalStorage();
+		if(island != null){
+			island.finishBuilding(this);
+		}
 	}
 	protected abstract Storage getFinalStorage();
 

@@ -33,11 +33,18 @@ public class Main {
 			case "wood":
 				factory.getAmountOfRessource(RessourceType.WOOD);
 				break;
+			case "stone":
+				factory.getAmountOfRessource(RessourceType.STONE);
+				break;
+			case "finished":
+				factory.getFinishedBuildings();
+				break;
 			default:
 				break;
 			}
 			nextLine = scanner.nextLine();
 		}
+		System.exit(0);
 	}
 
 }

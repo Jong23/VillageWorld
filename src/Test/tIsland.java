@@ -9,7 +9,7 @@ import java.util.Map.Entry;
 
 import org.junit.Test;
 
-import Buildings.Building;
+import Buildings.Building; 
 import Buildings.Lumberer;
 import Buildings.StorageBuilding;
 import Enums.BuildingType;
@@ -24,10 +24,10 @@ public class tIsland {
 	private void setup(){
 		island = new Island();
 		storageBuilding = new StorageBuilding(0, 0);
+		island.addBuilding(storageBuilding);
 		storageBuilding.finishConstruction();
 		storageBuilding.getStorage().addRessource(RessourceType.WOOD, 100);
 		storageBuilding.getStorage().addRessource(RessourceType.STONE, 100);
-		island.addBuilding(storageBuilding);
 		lumberer = new Lumberer(0, 0);
 		island.addBuilding(lumberer);
 		lumberer.finishConstruction();
@@ -64,16 +64,39 @@ public class tIsland {
 		assertEquals(1, buildingsInConstruction.size());
 		
 		//transportTasks to that building
-		ArrayList<TransportTask> transportTasksForConstruction = island.getTransportsToCreateBuilding();
+		ArrayList<TransportTask> transportTasksForConstruction = island.getTransportsToCreateBuilding(100);
 		// Stone to lumberer from Storage
 		// WOOD to lumberer from Storage
 		// WOOD to lumberer from finishedLumberer
 		assertEquals(3, transportTasksForConstruction.size());
-		transportTasksForConstruction.get(0);
 		assertTrue(transportTasksForConstruction.get(0).getAmount()>=transportTasksForConstruction.get(1).getAmount());
 		assertTrue(transportTasksForConstruction.get(1).getAmount()>=transportTasksForConstruction.get(2).getAmount());
 		assertSame(storageBuilding, transportTasksForConstruction.get(0).getFrom());
 		assertSame(lumbererInConstruction, transportTasksForConstruction.get(0).getTo());
+		
+		//transportTasks to that building with max capacity 15
+		transportTasksForConstruction = island.getTransportsToCreateBuilding(15);
+		// Stone to lumberer from Storage (10)
+		// WOOD to lumberer from Storage (20)
+		// WOOD to lumberer from finishedLumberer (1)
+		assertTrue(transportTasksForConstruction.get(0).getAmount() == 15);
+		assertSame(storageBuilding, transportTasksForConstruction.get(0).getFrom());
+		assertSame(lumbererInConstruction, transportTasksForConstruction.get(0).getTo());
+		
+		
+		//finishedLumberer has 1 Wood and 4 Space left for Wood
+		storageBuilding.getStorage().removeRessource(RessourceType.WOOD, 20);
+		ArrayList<TransportTask> transportsFromProduction = island.getTransportsFromProductionBuildings(5, 1);
+		assertEquals(0, transportsFromProduction.size());
+		lumberer.produce();
+		lumberer.produce();
+		//lumberer has now 3 Wood
+		transportsFromProduction = island.getTransportsFromProductionBuildings(5, 2);
+		assertEquals(1, transportsFromProduction.size());
+		TransportTask taskForProduction = transportsFromProduction.get(0);
+		assertSame(storageBuilding, taskForProduction.getTo());
+		assertSame(lumberer, taskForProduction.getFrom());
+		assertEquals(3, taskForProduction.getAmount());
 		
 	}
 
