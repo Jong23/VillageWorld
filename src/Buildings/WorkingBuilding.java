@@ -5,13 +5,11 @@ import java.util.TimerTask;
 
 import Enums.BuildingStatus;
 import Enums.BuildingType;
-import Enums.RessourceType;
-import Game.Storage;
 import helpers.Clock;
 
 public abstract class WorkingBuilding extends Building{
 	static Timer timer = new Timer();
-	protected int workers = 0; 
+	protected int workers = 0;  
 	protected int activeWorkers = 0;
 	private int maxWorkers = 2;
 	protected static Clock clock = Clock.getInstance();

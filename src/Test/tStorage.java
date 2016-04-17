@@ -7,10 +7,15 @@ import java.util.HashMap;
 import org.junit.Test;
 
 import Enums.RessourceType;
-import Game.Storage;
+import Storages.ConstructionStorage;
+import Storages.ConsumptionStorage;
+import Storages.ProductionConsumptionStorage;
+import Storages.ProductionStorage;
+import Storages.StandardStorage;
+import Storages.Storage;
 
 public class tStorage {
-	Storage storage = new Storage(100);
+	Storage storage = null;
 	RessourceType type = RessourceType.WOOD;
 
 	@Test
@@ -24,7 +29,7 @@ public class tStorage {
 		
 		
 		// creation of Storage with needed ressources (construction)
-		storage = new Storage(5, new RessourceType [] {RessourceType.WOOD}, new int []{10});
+		storage = new ConstructionStorage(5, new RessourceType [] {RessourceType.WOOD}, new int []{10});
 		assertEquals(-10, (storage.getAmountOfRessource(RessourceType.WOOD)));
 		HashMap<RessourceType, Integer> neededRessources = storage.getNeededRessourcesForConstruction();
 		assertEquals(1, neededRessources.size());
@@ -43,7 +48,7 @@ public class tStorage {
 		
 		
 		//building that needs ressources for production
-		storage = new Storage(5, new RessourceType [] {RessourceType.STONE}, RessourceType.WOOD);
+		storage = new ProductionConsumptionStorage(5, new RessourceType [] {RessourceType.STONE}, RessourceType.WOOD);
 		storage.addRessource(RessourceType.WOOD, 5);
 		storage.addRessource(RessourceType.STONE, 5);
 		assertEquals(5, storage.getAvailableAmountOfRessource(RessourceType.WOOD));
@@ -52,6 +57,7 @@ public class tStorage {
 	}
 
 	protected void ressourceAddingRemoving() {
+		storage = new StandardStorage(100);
 		//initial
 		assertEquals(0, storage.getAmountOfRessource(type));
 		assertEquals(0, storage.getAvailableAmountOfRessource(type));
@@ -97,10 +103,10 @@ public class tStorage {
 	}
 
 	protected void isFull() {
-		storage = new Storage(0);
+		storage = new StandardStorage(0);
 		assertTrue(storage.isFull());
 		
-		storage = new Storage(5, new RessourceType [] {RessourceType.WOOD});
+		storage = new ConsumptionStorage(5, new RessourceType [] {RessourceType.WOOD});
 		assertFalse(storage.isFull());
 		storage.addRessource(RessourceType.WOOD, 5);
 		assertTrue(storage.isFull());
@@ -113,7 +119,7 @@ public class tStorage {
 		storage.deliverComingRessource(type, 5);
 		assertTrue(storage.isFull());
 		
-		storage = new Storage(5, RessourceType.WOOD);
+		storage = new ProductionStorage(5, RessourceType.WOOD);
 		assertFalse(storage.isFull());
 		storage.addRessource(type, 5);
 		assertTrue(storage.isFull());

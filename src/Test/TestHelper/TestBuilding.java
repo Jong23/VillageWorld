@@ -1,13 +1,15 @@
 package Test.TestHelper;
 
+import Buildings.Lumberer;
 import Buildings.WorkingBuilding;
 import Enums.BuildingStatus;
 import Enums.BuildingType;
+import Storages.Storage;
 
-public class TestBuilding extends WorkingBuilding {
+public class TestBuilding extends Lumberer {
 	int counter = 0;
 	public TestBuilding() {
-		super(0,0,BuildingType.LUMBERER);
+		super(0,0);
 		setBuildingStatus(BuildingStatus.FINISHED);
 	}
 	

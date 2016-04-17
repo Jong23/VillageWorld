@@ -5,6 +5,8 @@ import java.util.TimerTask;
 
 import Enums.BuildingType;
 import Game.TransportTask;
+import Storages.StandardStorage;
+import Storages.Storage;
 
 public class StorageBuilding extends WorkingBuilding {
 	int workerSpeed = 1;
@@ -56,5 +58,11 @@ public class StorageBuilding extends WorkingBuilding {
 	@Override
 	public void produce() {
 		//not needed
+	}
+
+
+	@Override
+	protected Storage getFinalStorage() {
+		return new StandardStorage(100);
 	}
 }

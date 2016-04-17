@@ -2,9 +2,11 @@ package Buildings;
 
 import Enums.BuildingStatus;
 import Enums.BuildingType;
-import Enums.RessourceType;
 import Game.Island;
-import Game.Storage;
+import Storages.ConstructionStorage;
+import Storages.ProductionStorage;
+import Storages.StandardStorage;
+import Storages.Storage;
 
 public abstract class Building{
 	int width;
@@ -34,7 +36,7 @@ public abstract class Building{
 		status = BuildingStatus.INCONSTRUCTION;
 	}
 	private  Storage createConstructionStorage() {
-		Storage storage = new Storage(0, type.getNeededRessources(), type.getAmountOfRessources());
+		Storage storage = new ConstructionStorage(0, type.getNeededRessources(), type.getAmountOfRessources());
 		storage.setBuilding(this);
 		return storage;
 	}
@@ -66,20 +68,12 @@ public abstract class Building{
 		this.status = status;
 	}
 	public void finishConstruction() {
+		System.out.println("building finished");
 		status = BuildingStatus.FINISHED;
 		
-		if(type.getStorageSize()>0){
-			if(type.getProducedRessource() == null){
-				storage = new Storage(type.getStorageSize());
-			} else {
-				storage = new Storage(type.getStorageSize(), type.getProducedRessource());
-			}
-			storage.setBuilding(this);
-		}else {
-			storage = null;
-		}
-		
+		storage = getFinalStorage();
 	}
+	protected abstract Storage getFinalStorage();
 
 	
 	

@@ -1,4 +1,4 @@
-package Game;
+package Storages;
 
 
 import java.util.ArrayList;
@@ -10,7 +10,7 @@ import Buildings.Building;
 import Enums.BuildingStatus;
 import Enums.RessourceType;
 
-public class Storage {
+public abstract class Storage {
 	protected int size; 
 	protected HashMap<RessourceType, Integer> ressources;
 	protected HashMap<RessourceType, Integer> reservedRessources;
@@ -18,53 +18,8 @@ public class Storage {
 	protected ArrayList<RessourceType> neededRessourcesForProduction;
 	protected RessourceType producedRessource;
 	protected Building building;
-	//storage that stores every Ressource
-	public Storage(int size){
-		initialize(size);
-		for (RessourceType ressourceType : RessourceType.values()) {
-			ressources.put(ressourceType, 0);
-			comingRessources.put(ressourceType, 0);
-			reservedRessources.put(ressourceType, 0);
-		}
-	}
-	//storage that consumes some ressources
-	public Storage(int size, RessourceType [] neededRessources){
-		initialize(size);
-		neededRessourcesForProduction = new ArrayList<RessourceType> (Arrays.asList(neededRessources));
-		for (int i = 0; i < neededRessources.length; i++) {
-			ressources.put(neededRessources[i], 0);
-			comingRessources.put(neededRessources[i], 0);
-			reservedRessources.put(neededRessources[i], 0);
-		}
-	}
-	//storage that produces one ressource
-	public Storage(int size, RessourceType producedRessource){
-		initialize(size);
-		this.producedRessource = producedRessource;
-		ressources.put(producedRessource, 0);
-		reservedRessources.put(producedRessource, 0);
-		comingRessources.put(producedRessource, 0);
-	}
-	// storage that consumes ressources and produces a ressource
-	public Storage(int size, RessourceType [] neededRessources, RessourceType producedRessource){
-		initialize(size);
-		neededRessourcesForProduction = new ArrayList<RessourceType> (Arrays.asList(neededRessources));
-		for (int i = 0; i < neededRessources.length; i++) {
-			ressources.put(neededRessources[i], 0);
-			comingRessources.put(neededRessources[i], 0);
-		}
-		ressources.put(producedRessource, 0);
-		reservedRessources.put(producedRessource, 0);
-	}
-	//storage for buildings in construction
-	public Storage(int size, RessourceType [] neededRessources, int [] amountOfRessource){
-		initialize(size);
-		for (int i = 0; i < neededRessources.length; i++) {
-			ressources.put(neededRessources[i], -amountOfRessource[i]);
-			comingRessources.put(neededRessources[i], 0);
-		}
-	}
-	private void initialize(int size) {
+
+	protected  Storage(int size) {
 		neededRessourcesForProduction = new ArrayList<RessourceType>();
 		ressources = new HashMap<>();
 		comingRessources = new HashMap<>();
