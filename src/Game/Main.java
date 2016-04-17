@@ -1,19 +1,43 @@
 package Game;
 
-import org.lwjgl.LWJGLException;
-import org.lwjgl.opengl.Display;
-import org.lwjgl.opengl.DisplayMode;
+import java.util.Scanner;
 
-import Buildings.StorageBuilding;
-import Map.MapGui;
-
-import static org.lwjgl.opengl.GL11.*;
+import Enums.RessourceType;
 
 public class Main {
 
 	public static void main(String[] args) {
 		Island i = new Island();
-		i.addBuilding(new StorageBuilding(0, 0));
+		BuildingFactory factory = new BuildingFactory(i);
+		Scanner scanner = new Scanner(System.in);
+		String nextLine = scanner.nextLine();
+		while(nextLine != "Exit"){
+			switch (nextLine) {
+			case "fs":
+				factory.buildFinishedStorage();
+				break;
+			case "l":
+				factory.buildLumberer();
+				break;
+			case "w":
+				try {
+					Thread.sleep(1000);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				break;
+			case "worker":
+				factory.addWorkers();
+				break;
+			case "wood":
+				factory.getAmountOfRessource(RessourceType.WOOD);
+				break;
+			default:
+				break;
+			}
+			nextLine = scanner.nextLine();
+		}
 	}
 
 }

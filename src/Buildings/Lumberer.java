@@ -14,7 +14,10 @@ public class Lumberer extends WorkingBuilding {
 
 	@Override
 	public void produce() {
-		storage.addRessource(type, 1);
+		if(storage.getSpaceForRessource(type)>0){
+			storage.addRessource(type, 1);
+			System.out.println("Lumber produced");
+		}
 	}
 
 	@Override

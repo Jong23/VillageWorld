@@ -10,6 +10,7 @@ import java.util.stream.Collectors;
 import Buildings.Building;
 import Enums.BuildingStatus;
 import Enums.RessourceType;
+import Storages.Storage;
 
 public class Island {
 	ArrayList<Building> buildings;

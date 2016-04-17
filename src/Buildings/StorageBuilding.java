@@ -27,11 +27,9 @@ public class StorageBuilding extends WorkingBuilding {
 	
 	@Override
 	public void scheduleWork(){
-		System.out.println("Search TransportTask");
 		ArrayList<TransportTask> transportTasks = getIsland().getTransportsToCreateBuilding();
 		if(transportTasks.size() == 0){
 			idleWork();
-			System.out.println("No TransportTask available");
 			return;
 		}
 		TransportTask transportTask = transportTasks.get(0);
